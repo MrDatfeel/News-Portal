@@ -1,0 +1,48 @@
+python manage.py shell
+from news.models import*
+
+1.Создать двух пользователей с помощью метода User.object.create_user:
+
+u1=User.object.create_user()
+u2=User.object.create_user()
+
+2.Создать два обьекта модели Author, связанные с пользователями:
+
+Author.objects.create(user=u1)
+Author.objects.create(user=u2)
+
+3.Добавить 4 категории в модель Category:
+Category object ("образование")
+Category object ("политика")
+Category object ("спорт")
+Category object ("медицина")
+
+4.Добавить 2 статьи и 1 новость.
+Post object ("статья")
+Post object ("новость")
+
+5.Присвоить им категории (как минимум в одной статье/новости должно быть не меньше 2 категорий).
+
+6.Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий).
+
+7.Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов.
+
+    def like(self):
+        self.rating += 1
+        self.save()
+
+    def dislike(self):
+        self.rating -= 1
+        self.save()
+Обновить рейтинги пользователей.
+rating = models.IntegerField(default=0)
+9.Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта).
+
+10.Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
+
+11.Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+ post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField(default=0)
